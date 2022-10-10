@@ -1,6 +1,31 @@
-card_number = int(input("لطفا 6 رقم اول کارت را وارد کنید:"))
-if len(str(card_number)) != 6:
-    raise ValueError("طول شماره کارت وارد شده باید 6 رقم باشد")
+def len_checker(number: str) -> bool:
+    return len(number) == 16
+
+def card_checker(number: str) -> bool:
+    must_sum = []
+    card_list = [int(i) for i in number]
+
+    counter = 0
+    for i in card_list:
+        counter += 1
+        if counter % 2 == 0:
+            zarb = i * 1
+            if zarb >= 10:
+                must_sum.append(zarb - 9)
+            else:
+                must_sum.append(zarb)
+        else:
+            zarb = int(i) * 2
+            if zarb >= 10:
+                must_sum.append(zarb - 9)
+            else:
+                must_sum.append(zarb)
+    sum_numbers = sum(must_sum)
+    if sum_numbers % 10 == 0:
+        return True
+    else:
+        return False
+
 banks = {
     627412: "بانک اقتصاد نوین",
     207177: "بانک توسعه صادرات ایران",
@@ -43,8 +68,13 @@ banks = {
     991975: "بانک ملت"
 }
 
-for j, k in banks.items():
-    if card_number == j:
-        print(k)
+def where(number: str):
+    if len_checker(number) and card_checker(number):
+        number = number[:6]
+        for j, k in banks.items():
+            if int(number) == j:
+                return k
+    else:
+        raise ValueError('SomeThing is Wrong !(len or card number)')
 
-name = "mamad"
+# print(where('6037997350202355'))
