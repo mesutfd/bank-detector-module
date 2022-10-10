@@ -46,3 +46,5 @@ banks = {
 for j, k in banks.items():
     if card_number == j:
         print(k)
+
+name = "mamad"
